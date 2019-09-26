@@ -1,0 +1,74 @@
+# khan
+//correct_code
+#include<stdio.h>
+void insertionSort(int array[],int min, int max);
+void mergeSort(int array[],int min,int max,int r);
+int main()
+{
+    int r=10;
+    int n;
+   scanf("%d",&n) ;
+    int array[n+10];
+   for (int i=0; i<n; i++){
+       scanf("%d",&array[i]);
+    }
+
+    mergeSort(array,0,n-1,r);
+
+    for (int i=0;i<n;i++){
+       printf("%d ",array[i]);
+    }
+   return 0;
+}
+void mergeSort(int array[],int min,int max,int r)
+{
+    if ((max-min+1)<=r)
+    {
+        insertionSort(array,min,max);
+    }
+    else
+    {
+        int mid=(max+min)/2;
+
+        mergeSort(array, min, mid,r);
+        mergeSort(array, mid+1, max,r);
+        merge(array, min, max, mid) ;
+    }
+}
+ void merge(int array[], int min, int max, int mid)
+{
+    int p = min;
+    int q= mid + 1;
+    int temp[max + 5];
+
+    for (int index = min; index<=max; index++) {
+        if (p<= mid &&(q>max||array[p]<=array[q]))
+        {
+            temp[index] = array[p];
+             p=p+1;
+        }
+
+        else
+        {
+            temp[index] = array[q];
+            q=q+1;
+        }
+    }
+  for (int index=min;index<=max;index++)
+        array[index]=temp[index];
+}
+void insertionSort(int array[], int min, int max)
+{
+    int key ;
+    for (int j= min + 1 ;j<=max;j++)
+    {
+        key=array[j] ;
+        int i = j - 1 ;
+        while(i>=min && array[i]>key)
+        {
+            array[i+1]=array[i] ;
+            i--;
+        }
+    array[i+1]=key;
+    }
+}
